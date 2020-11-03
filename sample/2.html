@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue"></script>
+    <title>2</title>
+</head>
+<body>
+    <div id="main">
+        <h1>{{title}}</h1>
+        <p>{{text}}</p>
+        <input v-model="text" type="text" name="text">
+    </div>
+
+    <script>
+        var app = new Vue({
+            el:"#main",
+            data: {
+                title: "Inputs",
+                text: "Your text"
+            }
+        })
+    </script>
+</body>
+</html>

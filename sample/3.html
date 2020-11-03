@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue"></script>
+    <title>3</title>
+</head>
+<body>
+    <div id="main">
+        <h1>{{title}}</h1>
+        <input v-model="name" type="text" name="name" placeholder="Name">
+        <input v-model="email" type="email" name="email" placeholder="Email"> 
+        <button @click="getText">Send</button>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el:"#main",
+            data: {
+                title: "Methods",
+                name: "",
+                email: ""
+            },
+            methods: {
+                getText () {
+                    console.log(`Name: ${this.name}`);
+                    console.log(`Email: ${this.email}`);
+                }
+            }
+            
+        })
+    </script>
+</body>
+</html>

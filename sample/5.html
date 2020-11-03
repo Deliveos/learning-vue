@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue"></script>
+    <title>5</title>
+</head>
+<body>
+    <div id="main">
+        <h1>{{title}}</h1>
+        <button @click="showContent = !showContent">{{checkButtonState}}</button>
+        <div v-if="showContent">
+            <p>Content</p>
+        </div>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el:"#main",
+            data: {
+                title: "v-if",
+                showContent: true,
+                buttonNameState: {
+                    show: "Show content",
+                    hide: "Hide content"
+                } 
+            },
+            methods: {
+                getContent () {
+                    this.showContent = !this.showContent;
+                    
+                }
+            },
+            computed: {
+                checkButtonState () {
+                    if (this.showContent) return this.buttonNameState.hide
+                    else return this.buttonNameState.show
+                }
+            }
+        })
+    </script>
+</body>
+</html>

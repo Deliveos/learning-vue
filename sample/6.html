@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue"></script>
+    <title>6</title>
+</head>
+<body>
+    <div id="main">
+        <h1>{{title}}</h1>
+        <input v-model="name" type="text" name="name" placeholder="Name">
+        <input v-model="email" type="text" name="email" placeholder="Email">
+        <input v-model="age" type="text" name="age" placeholder="Age">
+        <button @click="addUser">Add user</button>
+
+        <h3>Users:</h3>
+        <ul>
+            <li v-for="(user, index) in users" :key="index"><span>{{index+1}}</span> - <span>{{user.name}}</span> - <span>{{user.email}}</span></li>
+        </ul>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el:"#main",
+            data: {
+                title: "v-for",
+                name: "",
+                email: "",
+                age: "",
+                id: 5,
+                users: [
+                    {
+                        id: 1,
+                        name: "Jack",
+                        email: "jacky@gmailcom",
+                        age: 23
+                    },
+                    {
+                        id: 2,
+                        name: "Adrian",
+                        email: "adry@gmailcom",
+                        age: 34
+                    },
+                    {
+                        id: 3,
+                        name: "John",
+                        email: "johny@gmailcom",
+                        age: 20
+                    },
+                    {
+                        id: 4,
+                        name: "Havier",
+                        email: "havi@gmailcom",
+                        age: 19
+                    }
+                ]
+            },
+            methods: {
+                addUser () {
+                    if(this.name != "" && this.email != "" && this.age != ""){
+                        this.users.push({
+                            id: this.id,
+                            name: this.name,
+                            email: this.email,
+                            age: this.age
+                        });
+                        this.id++;
+                    }
+                },
+                
+            }
+        })
+    </script>
+</body>
+</html>

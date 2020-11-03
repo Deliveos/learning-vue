@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue"></script>
+    <title>4</title>
+</head>
+<body>
+    <div id="main">
+        <h1>{{title}}</h1>
+        <input v-model="text" type="text" name="name" placeholder="text">
+        <p>{{toLower}}</p>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el:"#main",
+            data: {
+                title: "Computed",
+                text: ""
+            },
+            computed: {
+                toLower () {
+                    return this.text.toLowerCase()
+                }
+            }
+            
+        })
+    </script>
+</body>
+</html>
