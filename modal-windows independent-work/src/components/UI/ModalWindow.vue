@@ -7,7 +7,7 @@
           <span class="button-close" @click="$emit('close')">×</span>
         </div>
         <div class="modal-body">
-          <slot name="body">Defoult content</slot>
+          <slot name="body">No content</slot>
         </div>
       </div>
     </div>
@@ -36,7 +36,7 @@ export default {
 
 <style lang="scss" scoped>
 //animation
-.modal-enter-active, .modal-leave-active {
+.modal-enter, .modal-leave-active {
   opacity: 0;
 }
 .modal-enter-active .modal-content,

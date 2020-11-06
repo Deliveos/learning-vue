@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Modal title="Modal with validate form" @close="$emit('close')">
+        <ModalWindow title="Sign up" @close="$emit('close')">
             <div slot="body">
                 <form @submit.prevent="onSubmit">
 
@@ -31,20 +31,23 @@
                         <input type="password" v-model.trim="$v.repeatPassword.$model" @change="$v.repeatPassword.$touch()" v-model="repeatPassword" :class="{error: $v.email.$error }" placeholder="Repeat Password">
                     </div>
 
-                    <button class="btn btnPrimary">DONE</button>
+                    <button class="btn btnPrimary">SIGN UP</button>
+                    <br>
+                    <br>
+                    <a @click.prevent="$emit('on-redirect')" class="link">sign in</a>
                 </form>
             </div>
-        </Modal>
+        </ModalWindow>
     </div>
 </template>
 
 <script>
 import { required, minLength, email, sameAs } from 'vuelidate/lib/validators'
-import Modal from '@/components/UI/Modal.vue'
+import ModalWindow from '@/components/UI/ModalWindow.vue'
 
 export default {
     components: {
-        Modal
+        ModalWindow
     },
     data() {
         return {
