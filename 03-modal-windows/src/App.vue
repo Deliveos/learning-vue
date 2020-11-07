@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import Modal from '@/components/UI/ModalWindow.vue'
+import Modal from '@/components/UI/Modal.vue'
 import ModalValidate from '@/components/ModalValidate.vue'
 
 export default {
