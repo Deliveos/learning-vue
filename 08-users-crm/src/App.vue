@@ -5,7 +5,7 @@
           <div class="container">
             <div class="navbar-content">
               <!-- logo -->
-              <div class="logo">VUE-ROUTER</div>
+              <div class="logo">USERS-CRM</div>
               <!-- menu -->
               <ul class="navbar-list">
                 <li class="navbar-item" v-for="(link, index) in links" :key="index">
@@ -22,10 +22,7 @@
 </template>
 
 <script>
-
-
 export default {
-  name: 'App',
   data() {
     return {
       links: [
@@ -43,10 +40,11 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.navbar-link {
+<style lang='scss'>
+a {
   &.router-link-exact-active {
-    color: #7ce281;
-  }
+  color: #42b983;
 }
+}
+
 </style>
