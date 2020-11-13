@@ -11,7 +11,10 @@
 
               <!-- svg -->
               <svg
-                @click="getNotifyLazy"
+                @click="
+                  $store.dispatch('setIsLoading', true);
+                  $store.dispatch('getNotifyLazy');
+                "
                 version="1.1"
                 id="Capa_1"
                 xmlns="http://www.w3.org/2000/svg"
@@ -36,15 +39,9 @@
               </svg>
             </div>
             <div class="notify-content">
-              <Preloader v-if="loading" />
-              <NotifyError
-                v-show="error.text && !loading && !isMessages"
-                :error="error"
-              />
-              <Notify
-                v-if="!loading && !error.title && isMessages"
-                :messages="messages"
-              />
+              <Preloader v-if="isLoading" />
+              <NotifyError v-show="error.text && !isLoading" :error="error" />
+              <Notify v-if="!isLoading && !error.title" :messages="messages" />
             </div>
           </div>
         </div>
@@ -67,49 +64,10 @@ export default {
     NotifyError,
   },
   data() {
-    return {
-      loading: false,
-      isMessages: true,
-    };
+    return {};
   },
   mounted() {
-    this.getNotify();
-  },
-  methods: {
-    getNotifyLazy() {
-      this.loading = true;
-      setTimeout(() => {
-        this.getNotify();
-      }, 2000);
-    },
-    getNotify() {
-      this.loading = true;
-      axios
-        .get('https://tocode.ru/static/c/vue-pro/notifyApi.php')
-        .then(response => {
-          let messages = [],
-            messagesMain = [],
-            data = response.data.notify;
-          for (let i = 0; i < data.length; i++) {
-            if (data[i].main) messagesMain.push(data[i]);
-            else {
-              messages.push(data[i]);
-            }
-          }
-          this.$store.dispatch('setMessage', messages);
-          this.$store.dispatch('setMessageMain', messagesMain);
-          this.error.text = null;
-          this.isMessages = true;
-        })
-        .catch(err => {
-          console.error(err);
-          this.$store.dispatch('setErrorText', err);
-          this.isMessages = false;
-        })
-        .finally(() => {
-          this.loading = false;
-        });
-    },
+    this.$store.dispatch('getNotify');
   },
   computed: {
     messages() {
@@ -117,6 +75,9 @@ export default {
     },
     error() {
       return this.$store.getters.getError;
+    },
+    isLoading() {
+      return this.$store.getters.getIsLoading;
     },
   },
 };

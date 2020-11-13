@@ -32,8 +32,32 @@ export default {
       axios
         .get('https://tocode.ru/static/c/vue-pro/notifyApi.php')
         .then(response => {
-          data = response.data.notify;
+          let messages = [],
+            messagesMain = [],
+            data = response.data.notify;
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].main) messagesMain.push(data[i]);
+            else {
+              messages.push(data[i]);
+            }
+          }
+          this.dispatch('setMessage', messages);
+          this.dispatch('setMessageMain', messagesMain);
+          this.dispatch('setErrorText', null);
+        })
+        .catch(err => {
+          console.error(err);
+          this.dispatch('setErrorText', err);
+        })
+        .finally(() => {
+          this.dispatch('setIsLoading', false);
         });
+    },
+    getNotifyLazy({ commit }) {
+      this.dispatch('setIsLoading', true);
+      setTimeout(() => {
+        this.dispatch('getNotify');
+      }, 2000);
     },
   },
   getters: {
