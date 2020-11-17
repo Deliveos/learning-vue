@@ -6,13 +6,13 @@
 </template>
 
 <script>
-import Header from '@/components/system/Header';
+import Header from "@/components/system/Header"
 
 export default {
   components: {
-    Header,
-  },
-};
+    Header
+  }
+}
 </script>
 
 <style></style>

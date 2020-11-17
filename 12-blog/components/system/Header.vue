@@ -5,7 +5,7 @@
         <div class="container">
           <div class="navbar-content">
             <!-- logo -->
-            <div class="logo">BLOG</div>
+            <div class="logo"><nuxt-link to="/">BLoG</nuxt-link></div>
             <!-- menu -->
             <ul class="navbar-list">
               <li
@@ -34,20 +34,25 @@ export default {
     return {
       links: [
         {
-          title: 'Home',
-          path: '/',
+          title: "Blog",
+          path: "/blog"
         },
         {
-          title: 'About',
-          path: '/about',
-        },
-      ],
-    };
-  },
-};
+          title: "About",
+          path: "/about"
+        }
+      ]
+    }
+  }
+}
 </script>
 
 <style lang="scss">
+.logo {
+  a {
+    color: #333;
+  }
+}
 .navbar-link {
   &.nuxt-link-exact-active {
     color: #444ce0;
