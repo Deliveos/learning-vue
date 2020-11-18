@@ -2,25 +2,34 @@
   <section class="post-list">
     <div class="container">
       <div class="posts-wrapper">
-        <PostPreview v-for="post in posts" :key="post.id" :post="post" />
+        <PostPreview
+          :admin="admin"
+          v-for="post in posts"
+          :key="post.id"
+          :post="post"
+        />
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import PostPreview from '@/components/Blog/PostPreview';
+import PostPreview from "@/components/Blog/PostPreview"
 export default {
   components: {
-    PostPreview,
+    PostPreview
   },
   props: {
     posts: {
       type: Array,
-      required: true,
+      required: true
     },
-  },
-};
+    admin: {
+      type: Boolean,
+      default: false
+    }
+  }
+}
 </script>
 
 <style lang="scss">

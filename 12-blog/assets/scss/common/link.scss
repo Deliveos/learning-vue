@@ -5,6 +5,10 @@
   &.linkWhite {
     border-bottom: 1px solid #ffffff;
     color: #ffffff;
+    margin-right: 8px;
+    &:last-child {
+      margin-right: 0;
+    }
   }
   &.linkFalse {
     border-bottom: 1px solid #b53f3f;

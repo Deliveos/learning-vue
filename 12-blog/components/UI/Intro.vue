@@ -2,6 +2,7 @@
   <section class="intro">
     <div class="container">
       <h2>{{ title }}</h2>
+      <slot />
     </div>
   </section>
 </template>
@@ -11,10 +12,10 @@ export default {
   props: {
     title: {
       type: String,
-      required: true,
-    },
-  },
-};
+      required: true
+    }
+  }
+}
 </script>
 
 <style lang="scss">
