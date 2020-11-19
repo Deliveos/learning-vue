@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NewPostForm @submit="onSubmit" />
+    <NewPostForm @save="onSubmit" />
   </div>
 </template>
 
@@ -13,8 +13,9 @@ export default {
   },
   methods: {
     onSubmit(post) {
-      console.log(`post added`)
-      console.log(post)
+      this.$store.dispatch("addPost", post).then(() => {
+        this.$router.push("/admin/")
+      })
     }
   }
 }

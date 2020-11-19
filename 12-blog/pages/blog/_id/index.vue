@@ -1,15 +1,17 @@
 <template>
   <div class="wrapper-content wrapper-content--fixed">
     <Post :post="post" />
-    <NewComment />
     <Comments :comments="comments" />
+    <NewComment :postId="$route.params.id" />
   </div>
 </template>
 
 <script>
+import axios from "axios"
+
 import Post from "@/components/Blog/Post.vue"
 import NewComment from "@/components/Comments/NewComment.vue"
-import Comments from "../../../components/Comments/Comments.vue"
+import Comments from "@/components/Comments/Comments.vue"
 
 export default {
   components: {
@@ -17,30 +19,20 @@ export default {
     NewComment,
     Comments
   },
-  data() {
+  async asyncData(context) {
+    let [post, comments] = await Promise.all([
+      axios.get(
+        `https://blog-nuxt-d2d88.firebaseio.com/posts/${context.params.id}.json`
+      ),
+      axios.get(`https://blog-nuxt-d2d88.firebaseio.com/comments.json`)
+    ])
+    //processing comments
+    let commentsArray = Object.values(comments.data).filter(
+      comment => comment.postId === context.params.id && comment.pablish
+    )
     return {
-      post: {
-        id: 1,
-        title: "1 post",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        content:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        img:
-          "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.2INvFFFf0b5PSDwithgfbwHaHa%26pid%3DApi&f=1"
-      },
-      comments: [
-        {
-          name: "Flor",
-          text:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        },
-        {
-          name: "Havier",
-          text:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        }
-      ]
+      post: post.data,
+      comments: commentsArray
     }
   }
 }

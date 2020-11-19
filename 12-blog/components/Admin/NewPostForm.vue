@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     save() {
-      this.$emit("submit", this.post)
+      this.$emit("save", this.post)
     },
     cancel() {
       this.$router.push("/admin/")
