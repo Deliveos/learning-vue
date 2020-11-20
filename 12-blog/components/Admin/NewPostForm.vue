@@ -1,15 +1,15 @@
 <template>
   <section class="new-post">
     <div class="container">
-      <form @submit.prevent>
+      <form @submit.prevent="save">
         <AppInput v-model="post.title">Title: </AppInput>
         <AppInput v-model="post.description">Description: </AppInput>
         <AppInput v-model="post.img">Image link: </AppInput>
         <AppTextArea v-model="post.content">Content: </AppTextArea>
 
         <div class="controls">
-          <AppButton @click="save">Save</AppButton>
-          <AppButton @click="cancel" class="btnDanger">Cancel</AppButton>
+          <AppButton>Save</AppButton>
+          <div @click="cancel" class="btn btnDanger">Cancel</div>
         </div>
       </form>
     </div>

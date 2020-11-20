@@ -2,7 +2,8 @@ import axios from "axios"
 
 export const state = () => ({
   loadedPosts: [],
-  loadedComments: []
+  loadedComments: [],
+  token: null
 })
 
 export const mutations = {
@@ -20,6 +21,9 @@ export const mutations = {
   },
   addComment(state, comment) {
     state.loadedComments.push(comment)
+  },
+  setToken(state, token) {
+    state.token = token
   }
 }
 
@@ -35,6 +39,27 @@ export const actions = {
       })
       .catch(e => console.error(e))
   },
+  authUser({ commit }, authData) {
+    const key = "AIzaSyAPx_nfX1hXwZYLrwgcH02yPG2UTmnzhvI"
+    return axios
+      .post(
+        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${key}`,
+        {
+          email: authData.email,
+          password: authData.password,
+          returnSecureToken: true
+        }
+      )
+      .then(res => {
+        commit("setToken", res.data.idToken)
+      })
+      .catch(e => {
+        console.error(e)
+      })
+  },
+  logoutUser({ commit }) {
+    commit("setToken", null)
+  },
   addPost({ commit }, post) {
     return axios
       .post("https://blog-nuxt-d2d88.firebaseio.com/posts.json", post)
@@ -43,9 +68,12 @@ export const actions = {
       })
       .catch(e => console.error(e))
   },
-  editPost({ commit }, post) {
+  editPost({ commit, state }, post) {
     return axios
-      .put(`https://blog-nuxt-d2d88.firebaseio.com/posts/${post.id}.json`, post)
+      .put(
+        `https://blog-nuxt-d2d88.firebaseio.com/posts/${post.id}.json?auth=${state.token}`,
+        post
+      )
       .then(response => {
         commit("editPost", post)
       })
@@ -64,5 +92,8 @@ export const actions = {
 export const getters = {
   getLoadedPosts(state) {
     return state.loadedPosts
+  },
+  checkAuthUser(state) {
+    return state.token !== null
   }
 }

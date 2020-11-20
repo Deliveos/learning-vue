@@ -23,10 +23,19 @@ export default {
     }
   },
   methods: {
-    onSabmit() {
-      //reset
-      this.user.email = ""
-      this.user.password = ""
+    onSubmit() {
+      this.$store
+        .dispatch("authUser", this.user)
+        .then(res => {
+          this.$router.push("/admin")
+          //reset
+          this.user.email = ""
+          this.user.password = ""
+        })
+        .catch(e => {
+          this.user.email = ""
+          this.user.password = ""
+        })
     }
   }
 }
